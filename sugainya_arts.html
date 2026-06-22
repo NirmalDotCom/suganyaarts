@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Suganya | Art & Illustration Portfolio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --c1:#ff5c5c; --c2:#ffb830; --c3:#4caf50;
+  --c4:#3d8bfd; --c5:#a259ff; --c6:#ff8a3d;
+  --bg:#faf3e6; --bg2:#f3e9d4; --bg3:#efe2c8;
+  --text:#2b2420; --text2:#6b5d4f;
+  --card:rgba(255,255,255,0.55); --border:rgba(60,40,20,0.12);
+}
+body{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,184,48,0.10), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(162,89,255,0.08), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(76,175,80,0.08), transparent 50%),
+    var(--bg);
+  color:var(--text); font-family:'Inter',sans-serif; cursor:none; overflow-x:hidden;
+}
+#customCursor{position:fixed;top:0;left:0;width:36px;height:44px;pointer-events:none;z-index:9999;transform:translate(-3px,-40px);filter:drop-shadow(0 0 8px rgba(255,92,92,0.7))}
+#cursorCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
+#navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:22px 6%;background:rgba(250,243,230,0.7);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:padding .3s,background .3s}
+#navbar.scrolled{padding:14px 6%;background:rgba(250,243,230,0.95)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;letter-spacing:-.5px;color:var(--text)}
+.accent{color:var(--c1)}
+.nav-links{list-style:none;display:flex;gap:38px}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.875rem;letter-spacing:.5px;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c5));transition:width .35s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-toggle{display:none;font-size:1.5rem;cursor:pointer;color:var(--text)}
+#hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-content{position:relative;z-index:2;padding:0 8%;max-width:720px}
+.hero-badge{display:inline-block;padding:8px 22px;border:1px solid rgba(255,92,92,.35);border-radius:50px;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:#c9700a;background:rgba(255,184,48,.12);margin-bottom:28px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6rem);font-weight:900;line-height:1.06;letter-spacing:-2px;margin-bottom:22px}
+.gradient-text{background:linear-gradient(135deg,var(--c1),var(--c2),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1.05rem;color:var(--text2);line-height:1.85;margin-bottom:40px;max-width:500px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{padding:14px 34px;background:linear-gradient(135deg,var(--c1),var(--c5));color:#fff;border:none;border-radius:50px;text-decoration:none;font-size:.95rem;font-weight:600;cursor:pointer;display:inline-block;box-shadow:0 0 30px rgba(255,92,92,.35);transition:transform .3s,box-shadow .3s}
+.btn-primary:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 55px rgba(255,92,92,.5)}
+.btn-outline{padding:14px 34px;border:1px solid var(--border);color:var(--text);border-radius:50px;text-decoration:none;font-size:.95rem;cursor:pointer;display:inline-block;backdrop-filter:blur(10px);transition:all .3s}
+.btn-outline:hover{border-color:var(--c4);color:var(--c4);transform:translateY(-4px)}
+.scroll-hint{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text2);font-size:.7rem;letter-spacing:3px;text-transform:uppercase;z-index:2;animation:bounce 2.2s ease-in-out infinite}
+.scroll-chevron{width:18px;height:18px;border-right:2px solid var(--c4);border-bottom:2px solid var(--c4);transform:rotate(45deg)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(9px)}}
+section{padding:120px 0;position:relative}
+.wrap{max-width:1200px;margin:0 auto;padding:0 6%}
+.sec-head{text-align:center;margin-bottom:72px}
+.eyebrow{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--c1);margin-bottom:14px}
+section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+section p{color:var(--text2);font-size:1rem;line-height:1.85}
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-canvas-wrap{width:100%;height:440px;border-radius:24px;overflow:hidden;position:relative;background:linear-gradient(160deg, rgba(255,255,255,0.5), rgba(255,255,255,0.15));border:1px solid var(--border)}
+.about-text h2{margin-bottom:22px}
+.about-text p{margin-bottom:18px}
+.stats-row{display:flex;gap:36px;margin-top:40px}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;background:linear-gradient(135deg,var(--c1),var(--c4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-l{font-size:.78rem;color:var(--text2);letter-spacing:1px}
+#services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px 30px;position:relative;overflow:hidden;transition:transform .4s,box-shadow .4s,border-color .4s;cursor:default}
+.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,92,92,.08),rgba(61,139,253,.08));opacity:0;transition:opacity .4s}
+.svc-card:hover::before{opacity:1}
+.svc-card:hover{transform:translateY(-10px) rotateX(4deg);border-color:rgba(255,92,92,.3);box-shadow:0 24px 60px rgba(255,92,92,.14),0 0 0 1px rgba(255,92,92,.08)}
+.svc-icon{font-size:2.4rem;margin-bottom:18px;display:block}
+.svc-card h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:12px;color:var(--text)}
+.svc-card p{font-size:.88rem;line-height:1.75;color:var(--text2)}
+#gallery{background:var(--bg3)}
+.slider-outer{position:relative;width:100%;height:80vh;min-height:600px;max-height:820px;margin-top:0;overflow:hidden}
+#sliderCanvas{width:100%;height:100%;display:block;cursor:pointer}
+.slider-info{position:absolute;top:30px;left:50%;transform:translateX(-50%);text-align:center;z-index:10;pointer-events:none}
+.slide-title{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.8);margin-bottom:4px}
+.slide-medium{font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.slider-controls{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;z-index:10}
+.sl-btn{width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:#fff;font-size:1.3rem;cursor:pointer;backdrop-filter:blur(12px);transition:all .3s}
+.sl-btn:hover{background:var(--c1);border-color:var(--c1);transform:scale(1.12)}
+.sl-dots{display:flex;gap:8px}
+.sl-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s}
+.sl-dot.active{background:var(--c1);width:28px;border-radius:4px;box-shadow:0 0 12px var(--c1)}
+.drag-hint{position:absolute;bottom:96px;right:30px;font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:1px;text-transform:uppercase;pointer-events:none;z-index:10}
+.zoom-hint{position:absolute;top:30px;right:30px;font-size:.7rem;color:rgba(255,255,255,.45);letter-spacing:1.5px;text-transform:uppercase;pointer-events:none;z-index:10;display:flex;align-items:center;gap:6px}
+#testimonials{background:var(--bg2)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:36px 30px;transition:transform .4s,box-shadow .4s}
+.testi-card:hover{transform:translateY(-8px);box-shadow:0 20px 55px rgba(61,139,253,.12);border-color:rgba(61,139,253,.25)}
+.stars{color:var(--c2);font-size:1rem;margin-bottom:18px;letter-spacing:3px}
+.testi-card p{font-size:.92rem;line-height:1.85;color:var(--text2);font-style:italic;margin-bottom:26px}
+.client{display:flex;align-items:center;gap:14px}
+.avatar{width:44px;height:44px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--c1),var(--c4));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;color:#fff}
+.client div{display:flex;flex-direction:column;gap:2px}
+.client strong{color:var(--text);font-size:.92rem}
+.client span{color:var(--text2);font-size:.78rem}
+#contact{background:var(--bg)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.contact-info h2{margin-bottom:18px}
+.contact-info>p{margin-bottom:36px}
+.cinfo-list{display:flex;flex-direction:column;gap:18px;margin-bottom:34px}
+.cinfo-item{display:flex;align-items:center;gap:14px;color:var(--text2);font-size:.92rem}
+.ci-icon{font-size:1.3rem}
+.socials{display:flex;gap:12px;flex-wrap:wrap}
+.soc-btn{padding:10px 22px;border:1px solid var(--border);border-radius:50px;color:var(--text2);text-decoration:none;font-size:.82rem;transition:all .3s}
+.soc-btn:hover{border-color:var(--c4);color:var(--c4);background:rgba(61,139,253,.08)}
+form{display:flex;flex-direction:column;gap:18px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:.75rem;color:var(--text2);letter-spacing:1px;text-transform:uppercase}
+.fg input,.fg textarea{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;color:var(--text);font-family:'Inter',sans-serif;font-size:.92rem;outline:none;resize:none;transition:border-color .3s,box-shadow .3s}
+.fg input:focus,.fg textarea:focus{border-color:var(--c4);box-shadow:0 0 22px rgba(61,139,253,.15);background:rgba(61,139,253,.05)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(60,40,20,.32)}
+.btn-full{width:100%;text-align:center;border-radius:12px;font-size:1rem}
+.form-status{text-align:center;font-size:.88rem;padding:12px;border-radius:8px;display:none}
+.form-status.success{background:rgba(76,175,80,.12);color:#2e7d32;border:1px solid rgba(76,175,80,.25);display:block}
+.form-status.error{background:rgba(255,92,92,.12);color:#c62828;border:1px solid rgba(255,92,92,.25);display:block}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:60px 0 36px}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700}
+.footer-inner>p{color:var(--text2);font-size:.9rem}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap;justify-content:center}
+.footer-links a{color:var(--text2);text-decoration:none;font-size:.88rem;transition:color .3s}
+.footer-links a:hover{color:var(--c1)}
+.copy{font-size:.75rem;color:rgba(60,40,20,.35);margin-top:6px}
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.art-modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+.art-modal.open{display:flex}
+.art-modal-backdrop{position:absolute;inset:0;background:rgba(20,14,8,0.8);backdrop-filter:blur(8px);animation:fadeIn .3s ease}
+.art-modal-content{position:relative;z-index:1;background:linear-gradient(160deg,#fffaf0,#f3e6d0);border-radius:24px;padding:28px;max-width:min(920px,92vw);width:100%;box-shadow:0 40px 100px rgba(0,0,0,0.45);animation:popIn .35s cubic-bezier(.2,.9,.3,1.3);display:flex;flex-direction:column;align-items:center}
+.art-modal-canvas-wrap{width:100%;aspect-ratio:1/1;max-height:64vh;border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.3);background:#1a1a1a}
+#modalCanvas{width:100%;height:100%;display:block}
+.art-modal-info{text-align:center;margin-top:20px}
+.art-modal-info h3{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--text);margin-bottom:6px}
+.art-modal-info p{font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2)}
+.art-modal-close{position:absolute;top:-16px;right:-16px;width:44px;height:44px;border-radius:50%;background:var(--c1);color:#fff;border:3px solid var(--bg);font-size:1.6rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(255,92,92,0.45);transition:transform .25s}
+.art-modal-close:hover{transform:scale(1.1) rotate(90deg)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}.about-grid{grid-template-columns:1fr;gap:48px}.about-canvas-wrap{height:320px}.contact-grid{grid-template-columns:1fr;gap:52px}}
+@media(max-width:768px){.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,243,230,.98);padding:24px 6%;gap:22px;border-top:1px solid var(--border)}.nav-links.open{display:flex}.nav-toggle{display:block}.services-grid{grid-template-columns:1fr}.testi-grid{grid-template-columns:1fr}.stats-row{flex-direction:column;gap:24px}.slider-outer{height:65vh;min-height:460px}.hero-title{letter-spacing:-1px}.art-modal-content{padding:18px}.art-modal-close{top:-12px;right:-8px;width:38px;height:38px;font-size:1.3rem}}
+
+/* ===== PRELOADER — 3D GLASS BOWL ===== */
+#preloader{
+  position:fixed;inset:0;z-index:99999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#f0eaff 0%,#faf3e6 50%,#e8f4fd 100%);
+  transition:opacity .8s ease, visibility .8s ease;
+  overflow:hidden;
+}
+#preloader::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 40%,rgba(162,89,255,.12),transparent 55%),
+             radial-gradient(ellipse at 75% 60%,rgba(61,139,253,.10),transparent 50%),
+             radial-gradient(ellipse at 50% 20%,rgba(255,92,92,.08),transparent 45%);
+  pointer-events:none;
+}
+#preloader.hide{opacity:0;visibility:hidden;pointer-events:none}
+.pre-scene{
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;gap:28px;
+}
+/* Glass bowl container */
+.pre-bowl-wrap{
+  position:relative;width:240px;height:260px;
+  filter:drop-shadow(0 20px 50px rgba(100,80,200,.22)) drop-shadow(0 4px 12px rgba(0,0,0,.10));
+}
+#preloaderCanvas{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+/* Liquid percentage text INSIDE bowl */
+.pre-pct{
+  position:absolute;bottom:54px;left:50%;transform:translateX(-50%);
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;
+  color:#fff;text-shadow:0 2px 12px rgba(100,60,200,.5);
+  pointer-events:none;white-space:nowrap;letter-spacing:1px;z-index:2;
+}
+/* Studio name below bowl */
+.pre-name{
+  font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+  background:linear-gradient(135deg,#ff5c5c,#a259ff,#3d8bfd);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:1px;
+}
+.pre-tagline{
+  font-size:.68rem;letter-spacing:4px;text-transform:uppercase;
+  color:#8b7bb0;margin-top:-18px;
+}
+
+/* ===== THEME SWITCHER ===== */
+#themeSwitcher{
+  position:fixed;bottom:28px;right:28px;z-index:2000;
+  display:flex;flex-direction:column;gap:10px;align-items:center;
+}
+.theme-label-tip{
+  font-size:.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text2);writing-mode:vertical-rl;
+  opacity:0.6;margin-bottom:4px;
+}
+.theme-btn{
+  width:38px;height:38px;border-radius:50%;border:2px solid transparent;
+  cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  position:relative;overflow:hidden;
+}
+.theme-btn:hover{transform:scale(1.18)}
+.theme-btn.active{border-color:#fff;box-shadow:0 0 0 3px rgba(0,0,0,.2),0 4px 14px rgba(0,0,0,.2)}
+.theme-btn[data-theme="warm"]{background:linear-gradient(135deg,#ff5c5c,#ffb830)}
+.theme-btn[data-theme="ocean"]{background:linear-gradient(135deg,#0ea5e9,#a259ff)}
+.theme-btn[data-theme="forest"]{background:linear-gradient(135deg,#22c55e,#14b8a6)}
+
+/* ===== LIQUID GLASS — global card effect ===== */
+.glass-card{
+  background:rgba(255,255,255,0.22)!important;
+  backdrop-filter:blur(18px) saturate(1.6)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.6)!important;
+  border:1px solid rgba(255,255,255,0.45)!important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -1px 0 rgba(255,255,255,0.15)!important;
+}
+/* liquid glass — service cards */
+.svc-card{
+  background:rgba(255,255,255,0.22)!important;
+  backdrop-filter:blur(18px) saturate(1.5);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);
+  border:1px solid rgba(255,255,255,0.45)!important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+/* liquid glass — testimonial cards */
+.testi-card{
+  background:rgba(255,255,255,0.22)!important;
+  backdrop-filter:blur(18px) saturate(1.5);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);
+  border:1px solid rgba(255,255,255,0.45)!important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+/* liquid glass — navbar */
+#navbar{
+  background:rgba(255,255,255,0.18)!important;
+  backdrop-filter:blur(28px) saturate(1.8)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(1.8)!important;
+  border-bottom:1px solid rgba(255,255,255,0.35)!important;
+  box-shadow:0 2px 24px rgba(0,0,0,0.07),inset 0 1px 0 rgba(255,255,255,0.6)!important;
+}
+#navbar.scrolled{
+  background:rgba(255,255,255,0.72)!important;
+}
+/* liquid glass — modal */
+.art-modal-content{
+  background:rgba(255,255,255,0.28)!important;
+  backdrop-filter:blur(32px) saturate(2)!important;
+  -webkit-backdrop-filter:blur(32px) saturate(2)!important;
+  border:1px solid rgba(255,255,255,0.5)!important;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    inset 0 -1px 0 rgba(255,255,255,0.2)!important;
+}
+/* liquid glass — form inputs */
+.fg input,.fg textarea{
+  background:rgba(255,255,255,0.3)!important;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.5)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
+}
+/* liquid glass — about orb wrap */
+.about-canvas-wrap{
+  background:rgba(255,255,255,0.18)!important;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.4)!important;
+  box-shadow:0 8px 32px rgba(0,0,0,0.08),inset 0 1px 0 rgba(255,255,255,0.6)!important;
+}
+
+/* ===== SLIDER GLASS FRAME (replaces yellow wooden border) ===== */
+.glass-frame-mat{display:none} /* placeholder — handled in JS */
+
+/* ===== THEME: OCEAN ===== */
+body.theme-ocean{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(14,165,233,0.14), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(162,89,255,0.10), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(20,184,166,0.09), transparent 50%),
+    #e8f4fd;
+}
+body.theme-ocean{ --bg:#e8f4fd;--bg2:#dbeeff;--bg3:#cfe4ff;--text:#0c2340;--text2:#2563a8;--border:rgba(14,100,200,0.14);--c1:#0ea5e9;--c2:#38bdf8;--c3:#14b8a6;--c4:#6366f1;--c5:#a259ff;--c6:#0284c7; }
+body.theme-ocean #navbar{background:rgba(14,165,233,0.12)!important}
+body.theme-ocean #navbar.scrolled{background:rgba(232,244,253,0.9)!important}
+
+/* ===== THEME: FOREST ===== */
+body.theme-forest{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(34,197,94,0.12), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(20,184,166,0.09), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(245,158,11,0.08), transparent 50%),
+    #ecfdf5;
+}
+body.theme-forest{ --bg:#ecfdf5;--bg2:#d1fae5;--bg3:#a7f3d0;--text:#052e16;--text2:#166534;--border:rgba(20,120,60,0.14);--c1:#22c55e;--c2:#f59e0b;--c3:#14b8a6;--c4:#0ea5e9;--c5:#a259ff;--c6:#84cc16; }
+body.theme-forest #navbar{background:rgba(34,197,94,0.10)!important}
+body.theme-forest #navbar.scrolled{background:rgba(236,253,245,0.92)!important}
+
+/* ===== THEME: WARM (default) ===== */
+body.theme-warm{ --c1:#ff5c5c;--c2:#ffb830;--c3:#4caf50;--c4:#3d8bfd;--c5:#a259ff;--c6:#ff8a3d; }
+
+/* ===== 3D LOGO + WATER BOWL ===== */
+.nav-logo{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  cursor:pointer;
+}
+.logo-3d-wrap{
+  position:relative;width:52px;height:52px;flex-shrink:0;
+  filter:drop-shadow(0 4px 12px rgba(162,89,255,.35));
+}
+#logoBowlCanvas{display:block;width:52px;height:52px;border-radius:50%}
+/* 3D animated logo text */
+.logo-text-3d{
+  display:flex;align-items:baseline;gap:0;
+  font-family:'Playfair Display',serif;
+  font-size:1.45rem;font-weight:900;letter-spacing:-.5px;
+  perspective:600px;
+}
+.logo-letter{
+  display:inline-block;
+  color:var(--text);
+  animation:logoFloat 3s ease-in-out infinite;
+  animation-delay:calc(var(--i) * 0.08s);
+  transform-style:preserve-3d;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,.08),
+    0 2px 4px rgba(0,0,0,.06);
+  transition:color .3s;
+}
+.logo-letter.logo-accent{
+  background:linear-gradient(135deg,#ff5c5c,#ff8a3d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 0 6px rgba(255,92,92,.4));
+}
+.logo-gap{width:.3em}
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0) rotateX(0deg)}
+  30%{transform:translateY(-3px) rotateX(8deg)}
+  60%{transform:translateY(1px) rotateX(-4deg)}
+}
+#navLogo:hover .logo-letter{
+  animation:logoBounce .5s ease forwards;
+  animation-delay:calc(var(--i) * 0.04s);
+}
+@keyframes logoBounce{
+  0%{transform:translateY(0) scale(1)}
+  40%{transform:translateY(-6px) scale(1.15) rotateZ(-3deg)}
+  70%{transform:translateY(2px) scale(.95) rotateZ(2deg)}
+  100%{transform:translateY(0) scale(1)}
+}
+
+/* ===== GLASS NAV LINKS ===== */
+.glass-nav-link{
+  position:relative;
+  display:inline-flex;align-items:center;
+  padding:7px 18px;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:.82rem;font-weight:500;letter-spacing:.5px;
+  color:var(--text2);
+  background:rgba(255,255,255,0.0);
+  border:1px solid transparent;
+  backdrop-filter:blur(0px);
+  transition:all .35s cubic-bezier(.2,.8,.3,1);
+  overflow:hidden;
+}
+.glass-nav-link::before{
+  content:'';
+  position:absolute;inset:0;border-radius:50px;
+  background:linear-gradient(135deg,rgba(255,255,255,0.55),rgba(255,255,255,0.15));
+  opacity:0;transition:opacity .35s;
+}
+.glass-nav-link::after{
+  content:'';
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:0;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--c1),var(--c5));
+  transition:width .35s cubic-bezier(.2,.8,.3,1);
+}
+.glass-nav-link:hover,
+.glass-nav-link.active{
+  color:var(--text);
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(16px) saturate(1.8);
+  -webkit-backdrop-filter:blur(16px) saturate(1.8);
+  border-color:rgba(255,255,255,0.55);
+  box-shadow:
+    0 4px 18px rgba(0,0,0,.07),
+    inset 0 1px 0 rgba(255,255,255,0.8),
+    inset 0 -1px 0 rgba(255,255,255,0.2);
+  transform:translateY(-1px);
+}
+.glass-nav-link:hover::before,.glass-nav-link.active::before{opacity:1}
+.glass-nav-link:hover::after,.glass-nav-link.active::after{width:60%}
+/* highlight shine sweep on hover */
+.glass-nav-link span{position:relative;z-index:1}
+
+/* ===== SECTION TITLES — LIQUID GLASS 3D ===== */
+section h2{
+  position:relative;display:inline-block;
+}
+.sec-head h2,.about-text h2,.contact-info h2{
+  background:linear-gradient(135deg,var(--text) 30%,var(--c1) 60%,var(--c5) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 2px 8px rgba(162,89,255,.15));
+  text-shadow:none;
+}
+/* eyebrow glass pill */
+.eyebrow{
+  display:inline-block;
+  padding:5px 16px;
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.6);
+  border-radius:50px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.7),0 3px 10px rgba(0,0,0,.06);
+  letter-spacing:4px;
+}
+/* hero title glass 3d */
+.hero-title{
+  text-shadow:
+    0 2px 0 rgba(255,255,255,0.5),
+    0 4px 16px rgba(0,0,0,.08),
+    0 8px 32px rgba(162,89,255,.1);
+  filter:drop-shadow(0 0 1px rgba(255,255,255,.6));
+}
+/* hero badge glass */
+.hero-badge{
+  background:rgba(255,255,255,0.32)!important;
+  backdrop-filter:blur(14px) saturate(1.8)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(1.8)!important;
+  border:1px solid rgba(255,255,255,0.6)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.8),0 4px 14px rgba(0,0,0,.07)!important;
+}
+/* stats glass pill */
+.stat{
+  background:rgba(255,255,255,0.28);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:16px;
+  padding:16px 24px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 4px 16px rgba(0,0,0,.06);
+}
+/* footer logo 3d */
+.footer-logo{
+  background:linear-gradient(135deg,var(--text) 20%,var(--c1) 55%,var(--c5) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 2px 8px rgba(255,92,92,.18));
+}
+</style>
+</head>
+<body>
+
+
+<!-- ===== PRELOADER — 3D GLASS BOWL ===== -->
+<div id="preloader">
+  <div class="pre-scene">
+    <div class="pre-bowl-wrap">
+      <canvas id="preloaderCanvas" width="480" height="520"></canvas>
+      <div class="pre-pct" id="preloaderPct">0%</div>
+    </div>
+    <div class="pre-name">✦ SuganyaArt</div>
+    <div class="pre-tagline">Painting stories, one stroke at a time</div>
+  </div>
+</div>
+
+<!-- ===== THEME SWITCHER ===== -->
+<div id="themeSwitcher">
+  <span class="theme-label-tip">Theme</span>
+  <button class="theme-btn active" data-theme="warm" title="Warm Sunset"></button>
+  <button class="theme-btn" data-theme="ocean" title="Ocean Blue"></button>
+  <button class="theme-btn" data-theme="forest" title="Forest Green"></button>
+</div>
+
+<canvas id="cursorCanvas"></canvas>
+<div id="customCursor">
+  <svg width="36" height="44" viewBox="0 0 36 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#ff5c5c"/>
+        <stop offset="33%"  stop-color="#ffb830"/>
+        <stop offset="66%"  stop-color="#4caf50"/>
+        <stop offset="100%" stop-color="#3d8bfd"/>
+      </linearGradient>
+    </defs>
+    <rect x="11" y="1" width="14" height="6" rx="2" fill="#ffb3b3"/>
+    <rect x="11" y="7" width="14" height="3" fill="#ccc"/>
+    <rect x="11" y="10" width="14" height="22" rx="1" fill="url(#pg)"/>
+    <polygon points="11,32 25,32 18,42" fill="#f4a460"/>
+    <polygon points="16,39 20,39 18,44" fill="#222"/>
+  </svg>
+</div>
+
+<nav id="navbar">
+  <!-- 3D animated logo with glass bowl water pour -->
+  <div class="nav-logo" id="navLogo">
+    <div class="logo-3d-wrap">
+      <canvas id="logoBowlCanvas" width="52" height="52"></canvas>
+    </div>
+    <div class="logo-text-3d">
+      <span class="logo-letter" style="--i:0">S</span><span class="logo-letter" style="--i:1">u</span><span class="logo-letter" style="--i:2">g</span><span class="logo-letter" style="--i:3">a</span><span class="logo-letter" style="--i:4">n</span><span class="logo-letter" style="--i:5">y</span><span class="logo-letter" style="--i:6">a</span><span class="logo-letter logo-gap" style="--i:7">&nbsp;</span><span class="logo-letter logo-accent" style="--i:8">A</span><span class="logo-letter logo-accent" style="--i:9">r</span><span class="logo-letter logo-accent" style="--i:10">t</span>
+    </div>
+  </div>
+  <!-- Glass pill nav links -->
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero" class="glass-nav-link"><span>Home</span></a></li>
+    <li><a href="#about" class="glass-nav-link"><span>About</span></a></li>
+    <li><a href="#services" class="glass-nav-link"><span>Services</span></a></li>
+    <li><a href="#gallery" class="glass-nav-link"><span>Gallery</span></a></li>
+    <li><a href="#contact" class="glass-nav-link"><span>Contact</span></a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle">☰</div>
+</nav>
+
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Artist &amp; Illustrator</div>
+    <h1 class="hero-title">Painting <span class="gradient-text">Stories</span><br/>with Every <span class="gradient-text">Stroke</span></h1>
+    <p class="hero-sub">I am Suganya — a passionate artist creating vibrant illustrations, portraits, and paintings that bring emotions to life through colour and creativity.</p>
+    <div class="hero-btns">
+      <a href="#gallery" class="btn-primary">View My Art</a>
+      <a href="#contact" class="btn-outline">Commission a Piece</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-chevron"></div><span>Scroll</span></div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-canvas-wrap" id="aboutOrb"></div>
+      <div class="about-text">
+        <div class="eyebrow">My Story</div>
+        <h2>Where Colours <span class="gradient-text">Speak</span> Louder Than Words</h2>
+        <p>Hello! I'm Suganya, an artist and illustrator with a deep love for storytelling through art. My journey began with a pencil and a blank page, and over the years it has blossomed into a full creative practice spanning illustration, portrait art, digital painting, and canvas work.</p>
+        <p>Every artwork I create carries a piece of my heart. I believe art should feel alive — full of texture, emotion, and meaning. Whether it's a delicate portrait or a bold abstract, my goal is always the same: to make you feel something.</p>
+        <p>I work with clients worldwide on commissions, book illustrations, brand identities, and personal pieces. Let's create something beautiful together.</p>
+        <div class="stats-row">
+          <div class="stat"><span class="stat-n">150+</span><span class="stat-l">Artworks Created</span></div>
+          <div class="stat"><span class="stat-n">80+</span><span class="stat-l">Happy Clients</span></div>
+          <div class="stat"><span class="stat-n">5+</span><span class="stat-l">Years of Art</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">What I Create</div>
+      <h2>Art <span class="gradient-text">Services</span></h2>
+      <p>From personal commissions to professional brand work — every piece made with love</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card" data-tilt><div class="svc-icon">🎨</div><h3>Illustration</h3><p>Custom hand-crafted illustrations for books, magazines, social media, and personal projects.</p></div>
+      <div class="svc-card" data-tilt><div class="svc-icon">🖌️</div><h3>Digital Painting</h3><p>Rich digital artworks blending traditional painting techniques with modern digital tools.</p></div>
+      <div class="svc-card" data-tilt><div class="svc-icon">👤</div><h3>Portrait Art</h3><p>Lifelike and stylised portrait commissions — capturing personality, emotion, and soul.</p></div>
+      <div class="svc-card" data-tilt><div class="svc-icon">🖼️</div><h3>Canvas Painting</h3><p>Original acrylic and oil paintings on canvas — available to purchase or commission.</p></div>
+      <div class="svc-card" data-tilt><div class="svc-icon">📖</div><h3>Book Illustration</h3><p>Bringing stories to life with vivid, character-rich illustrations for children and adults.</p></div>
+      <div class="svc-card" data-tilt><div class="svc-icon">✨</div><h3>Brand & Logo Art</h3><p>Hand-drawn logos and visual identities that give your brand a truly artistic character.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Portfolio</div>
+      <h2>Art <span class="gradient-text">Gallery</span></h2>
+      <p>Explore a selection of my artwork in an immersive 3D carousel — click any piece to view it up close</p>
+    </div>
+  </div>
+  <div class="slider-outer">
+    <canvas id="sliderCanvas"></canvas>
+    <div class="slider-info">
+      <div class="slide-title" id="slideTitle">Vibrant Flora Study</div>
+      <div class="slide-medium" id="slideMedium">Watercolour on Paper</div>
+    </div>
+    <div class="zoom-hint">🔍 Click to zoom</div>
+    <div class="slider-controls">
+      <button class="sl-btn" id="prevBtn">&#8592;</button>
+      <div class="sl-dots" id="slDots"></div>
+      <button class="sl-btn" id="nextBtn">&#8594;</button>
+    </div>
+    <div class="drag-hint">← Drag to rotate →</div>
+  </div>
+</section>
+
+<div id="artModal" class="art-modal">
+  <div class="art-modal-backdrop"></div>
+  <div class="art-modal-content">
+    <button class="art-modal-close" id="artModalClose">&times;</button>
+    <div class="art-modal-canvas-wrap"><canvas id="modalCanvas"></canvas></div>
+    <div class="art-modal-info">
+      <h3 id="modalTitle">Title</h3>
+      <p id="modalMedium">Medium</p>
+    </div>
+  </div>
+</div>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Kind Words</div><h2>Client <span class="gradient-text">Love</span></h2></div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Suganya's artwork is truly breathtaking. The portrait she created for our family captures every emotion perfectly. We treasure it every single day."</p><div class="client"><div class="avatar">S</div><div><strong>Sara M.</strong><span>Family Portrait Client</span></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"I commissioned illustrations for my children's book and was blown away. The characters felt alive! Every page has so much warmth and detail."</p><div class="client"><div class="avatar">R</div><div><strong>Ravi K.</strong><span>Children's Book Author</span></div></div></div>
+      <div class="testi-card"><div class="stars">★★★★★</div><p>"Our brand logo is now a piece of art. Suganya understood our vision instantly and delivered something far beyond what we imagined."</p><div class="client"><div class="avatar">A</div><div><strong>Aisha N.</strong><span>Startup Founder</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="eyebrow">Get In Touch</div>
+        <h2>Commission a <span class="gradient-text">Piece</span></h2>
+        <p>Have a project in mind? Whether it's a personal portrait, a book illustration, or a brand commission — I'd love to bring your vision to life.</p>
+        <div class="cinfo-list">
+          <div class="cinfo-item"><span class="ci-icon">📧</span><span>Suganya@creativeart.com</span></div>
+          <div class="cinfo-item"><span class="ci-icon">📍</span><span>Available Worldwide</span></div>
+          <div class="cinfo-item"><span class="ci-icon">⏱️</span><span>Replies within 24 hours</span></div>
+        </div>
+        <div class="socials">
+          <a href="#" class="soc-btn">Instagram</a>
+          <a href="#" class="soc-btn">Pinterest</a>
+          <a href="#" class="soc-btn">Behance</a>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="fg"><label>Your Name</label><input type="text" name="name" placeholder="Jane Doe" required/></div>
+          <div class="fg"><label>Email</label><input type="email" name="email" placeholder="jane@example.com" required/></div>
+          <div class="fg"><label>Subject</label><input type="text" name="subject" placeholder="Portrait Commission"/></div>
+          <div class="fg"><label>Message</label><textarea name="message" rows="5" placeholder="Tell me about your project..." required></textarea></div>
+          <button type="submit" class="btn-primary btn-full" id="submitBtn"><span>Send Message ✦</span></button>
+          <div id="formStatus" class="form-status"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logo">✦ Suganya<span class="accent">Art</span></div>
+    <p>Painting emotions, one brushstroke at a time.</p>
+    <div class="footer-links">
+      <a href="#hero">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+    </div>
+    <p class="copy">© 2026 Suganya Art. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+const qs = s => document.querySelector(s);
+const qsa = s => document.querySelectorAll(s);
+
+/* ============ PENCIL CURSOR ============ */
+const cursorEl = qs('#customCursor');
+const cursorCanvas = qs('#cursorCanvas');
+const ctx2d = cursorCanvas.getContext('2d');
+let mx=-200,my=-200;
+const trails=[];
+const PALETTE=['#ff5c5c','#ffb830','#4caf50','#3d8bfd','#a259ff','#ff8a3d','#ff5fa2','#2ec4b6'];
+let cIdx=0,cTimer=0;
+function resizeCursor(){cursorCanvas.width=innerWidth;cursorCanvas.height=innerHeight;}
+resizeCursor();
+window.addEventListener('resize',resizeCursor);
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cursorEl.style.left=mx+'px'; cursorEl.style.top=my+'px';
+  trails.push({x:mx,y:my,color:PALETTE[cIdx],alpha:1,size:3+Math.random()*4});
+  if(trails.length>140) trails.shift();
+});
+qsa('a,button,[data-tilt]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursorEl.style.transform='translate(-3px,-40px) scale(1.6)';});
+  el.addEventListener('mouseleave',()=>{cursorEl.style.transform='translate(-3px,-40px) scale(1)';});
+});
+function drawTrails(){
+  ctx2d.clearRect(0,0,cursorCanvas.width,cursorCanvas.height);
+  cTimer++; if(cTimer%15===0) cIdx=(cIdx+1)%PALETTE.length;
+  for(let i=0;i<trails.length;i++){
+    const t=trails[i]; t.alpha-=0.014; t.size*=0.982;
+    if(t.alpha<=0) continue;
+    ctx2d.beginPath(); ctx2d.arc(t.x,t.y,Math.max(t.size,0.4),0,Math.PI*2);
+    ctx2d.fillStyle=t.color; ctx2d.globalAlpha=t.alpha*0.65; ctx2d.fill(); ctx2d.globalAlpha=1;
+  }
+  if(trails.length>4){
+    const start=Math.max(0,trails.length-22);
+    ctx2d.beginPath(); ctx2d.moveTo(trails[start].x,trails[start].y);
+    for(let i=start+1;i<trails.length;i++) ctx2d.lineTo(trails[i].x,trails[i].y);
+    const grd=ctx2d.createLinearGradient(trails[start].x,trails[start].y,trails[trails.length-1].x,trails[trails.length-1].y);
+    grd.addColorStop(0,'rgba(255,92,92,0)'); grd.addColorStop(1,PALETTE[cIdx]);
+    ctx2d.strokeStyle=grd; ctx2d.lineWidth=2.8; ctx2d.lineCap='round'; ctx2d.lineJoin='round';
+    ctx2d.globalAlpha=0.55; ctx2d.stroke(); ctx2d.globalAlpha=1;
+  }
+  requestAnimationFrame(drawTrails);
+}
+drawTrails();
+
+/* ============ NAVBAR ============ */
+window.addEventListener('scroll',()=>{ qs('#navbar').classList.toggle('scrolled',window.scrollY>60); });
+qs('#navToggle').addEventListener('click',()=>{ qs('#navLinks').classList.toggle('open'); });
+qsa('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=qs(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); qs('#navLinks').classList.remove('open'); }
+  });
+});
+
+/* ============ CHECK THREE.JS LOADED ============ */
+if (typeof THREE === 'undefined') {
+  console.error('THREE.js failed to load from CDN — check your internet connection.');
+  document.body.insertAdjacentHTML('afterbegin', '<div style="position:fixed;top:0;left:0;right:0;background:#ff5c5c;color:#fff;padding:14px;text-align:center;z-index:99999;font-family:sans-serif;">⚠️ Three.js failed to load from the CDN. Please check your internet connection and refresh.</div>');
+} else {
+
+/* ============ HERO: SKETCH / CRAYON / PENCIL 3D BACKGROUND ============ */
+(function heroScene(){
+  const canvas=qs('#heroCanvas');
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setClearColor(0xfaf3e6,1);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,0.1,120);
+  camera.position.set(0,0,10);
+  scene.fog=new THREE.FogExp2(0xfaf3e6,0.022);
+
+  scene.add(new THREE.AmbientLight(0xfff6e6,0.8));
+  const crayonHue=[0xff5c5c,0xffb830,0x4caf50,0x3d8bfd,0xa259ff,0xff8a3d,0xff5fa2,0x2ec4b6];
+  const lights=crayonHue.slice(0,6).map((c)=>{
+    const l=new THREE.PointLight(c,1.7,24); scene.add(l); return l;
+  });
+
+  function buildCrayon(color){
+    const g=new THREE.Group();
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(0.11,0.11,1.1,14),new THREE.MeshPhongMaterial({color,shininess:35}));
+    g.add(body);
+    const tip=new THREE.Mesh(new THREE.ConeGeometry(0.11,0.22,14),new THREE.MeshPhongMaterial({color,shininess:35}));
+    tip.position.y=0.66; g.add(tip);
+    const band=new THREE.Mesh(new THREE.CylinderGeometry(0.116,0.116,0.32,14),new THREE.MeshPhongMaterial({color:0xfffaf0,shininess:10}));
+    g.add(band);
+    return g;
+  }
+  function buildPencil(color){
+    const g=new THREE.Group();
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,1.4,6),new THREE.MeshPhongMaterial({color,shininess:50}));
+    g.add(body);
+    const wood=new THREE.Mesh(new THREE.ConeGeometry(0.1,0.26,6),new THREE.MeshPhongMaterial({color:0xe8b97a,shininess:20}));
+    wood.position.y=0.83; g.add(wood);
+    const lead=new THREE.Mesh(new THREE.ConeGeometry(0.035,0.12,6),new THREE.MeshPhongMaterial({color:0x3a2a20,shininess:10}));
+    lead.position.y=0.96; g.add(lead);
+    return g;
+  }
+
+  const floaters=[];
+  for(let i=0;i<16;i++){
+    const color=crayonHue[i%crayonHue.length];
+    const m=(i%2===0)?buildCrayon(color):buildPencil(color);
+    m.position.set((Math.random()-0.5)*26,(Math.random()-0.5)*15,(Math.random()-0.5)*8-2);
+    m.rotation.set(Math.random()*Math.PI*2,Math.random()*Math.PI*2,Math.random()*Math.PI*2);
+    m._rx=(Math.random()-0.5)*0.012; m._ry=(Math.random()-0.5)*0.014; m._rz=(Math.random()-0.5)*0.008;
+    m._floatA=0.3+Math.random()*0.6; m._floatP=Math.random()*Math.PI*2; m._floatS=0.004+Math.random()*0.005;
+    m._baseY=m.position.y;
+    m.scale.setScalar(0.7+Math.random()*0.6);
+    scene.add(m); floaters.push(m);
+  }
+
+  const scribbles=[];
+  for(let i=0;i<16;i++){
+    const points=[];
+    const ox=(Math.random()-0.5)*22, oy=(Math.random()-0.5)*13, oz=(Math.random()-0.5)*6-1;
+    let cx=0,cy=0;
+    for(let j=0;j<=16;j++){ cx+=(Math.random()-0.5)*0.35; cy+=(Math.random()-0.5)*0.35; points.push(new THREE.Vector3(ox+cx,oy+cy,oz)); }
+    const geo=new THREE.BufferGeometry().setFromPoints(points);
+    const mat=new THREE.LineBasicMaterial({color:crayonHue[i%crayonHue.length],transparent:true,opacity:0.3+Math.random()*0.3});
+    const line=new THREE.Line(geo,mat);
+    line._floatA=0.15+Math.random()*0.3; line._floatP=Math.random()*Math.PI*2; line._floatS=0.003+Math.random()*0.005;
+    line._baseY=oy; line._rotSpd=(Math.random()-0.5)*0.002;
+    scene.add(line); scribbles.push(line);
+  }
+
+  function starPoints(r1,r2,pts){
+    const arr=[];
+    for(let i=0;i<=pts*2;i++){ const r=i%2===0?r1:r2; const a=(i/(pts*2))*Math.PI*2; arr.push(new THREE.Vector3(Math.cos(a)*r,Math.sin(a)*r,0)); }
+    return arr;
+  }
+  function spiralPoints(turns,r){
+    const arr=[]; const steps=60;
+    for(let i=0;i<=steps;i++){ const t=i/steps; const a=t*Math.PI*2*turns; arr.push(new THREE.Vector3(Math.cos(a)*r*t,Math.sin(a)*r*t,0)); }
+    return arr;
+  }
+  const doodles=[];
+  const doodleDefs=[()=>starPoints(0.35,0.16,5),()=>spiralPoints(3,0.4),()=>starPoints(0.3,0.13,6),()=>spiralPoints(2.5,0.32)];
+  for(let i=0;i<8;i++){
+    const pts=doodleDefs[i%doodleDefs.length]();
+    const geo=new THREE.BufferGeometry().setFromPoints(pts);
+    const mat=new THREE.LineBasicMaterial({color:crayonHue[(i+3)%crayonHue.length],transparent:true,opacity:0.45});
+    const loop=new THREE.LineLoop(geo,mat);
+    loop.position.set((Math.random()-0.5)*24,(Math.random()-0.5)*13,(Math.random()-0.5)*6-1);
+    loop.rotation.z=Math.random()*Math.PI*2;
+    loop._rotSpd=(Math.random()-0.5)*0.006; loop._floatA=0.2+Math.random()*0.4;
+    loop._floatP=Math.random()*Math.PI*2; loop._floatS=0.004+Math.random()*0.005; loop._baseY=loop.position.y;
+    scene.add(loop); doodles.push(loop);
+  }
+
+  const pCount=500;
+  const pPos=new Float32Array(pCount*3), pCol=new Float32Array(pCount*3);
+  const pCols=crayonHue.map(c=>new THREE.Color(c));
+  for(let i=0;i<pCount;i++){
+    pPos[i*3]=(Math.random()-0.5)*32; pPos[i*3+1]=(Math.random()-0.5)*18; pPos[i*3+2]=(Math.random()-0.5)*14;
+    const c=pCols[Math.floor(Math.random()*pCols.length)];
+    pCol[i*3]=c.r; pCol[i*3+1]=c.g; pCol[i*3+2]=c.b;
+  }
+  const pGeo=new THREE.BufferGeometry();
+  pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));
+  pGeo.setAttribute('color',new THREE.BufferAttribute(pCol,3));
+  scene.add(new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.05,vertexColors:true,transparent:true,opacity:0.55,sizeAttenuation:true})));
+
+  let mxN=0,myN=0;
+  window.addEventListener('mousemove',e=>{ mxN=(e.clientX/innerWidth-0.5)*2; myN=(e.clientY/innerHeight-0.5)*2; });
+
+  let T=0;
+  function animate(){
+    requestAnimationFrame(animate); T+=0.007;
+    lights.forEach((l,i)=>{
+      const a=T*0.5+(i/lights.length)*Math.PI*2;
+      l.position.x=Math.sin(a)*9+Math.cos(a*0.7)*4;
+      l.position.y=Math.cos(a*0.8)*5+Math.sin(a*0.5)*3;
+      l.position.z=Math.sin(a*0.5)*4+4;
+    });
+    floaters.forEach(m=>{
+      m.rotation.x+=m._rx; m.rotation.y+=m._ry; m.rotation.z+=m._rz;
+      m.position.y=m._baseY+Math.sin(T*m._floatS*100+m._floatP)*m._floatA;
+    });
+    scribbles.forEach(l=>{ l.rotation.z+=l._rotSpd; l.position.y=l._baseY+Math.sin(T*l._floatS*100+l._floatP)*l._floatA; });
+    doodles.forEach(d=>{ d.rotation.z+=d._rotSpd; d.position.y=d._baseY+Math.sin(T*d._floatS*100+d._floatP)*d._floatA; });
+    camera.position.x+=(mxN*1.8-camera.position.x)*0.025;
+    camera.position.y+=(-myN*1.0-camera.position.y)*0.025;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  }
+  animate();
+  window.addEventListener('resize',()=>{ renderer.setSize(innerWidth,innerHeight); camera.aspect=innerWidth/innerHeight; camera.updateProjectionMatrix(); });
+})();
+
+/* ============ ABOUT: 3D ROTATING ART ORB ============ */
+(function aboutScene(){
+  const wrap=qs('#aboutOrb'); if(!wrap) return;
+  const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(wrap.clientWidth,wrap.clientHeight);
+  renderer.setClearColor(0x000000,0);
+  wrap.appendChild(renderer.domElement);
+
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(55,wrap.clientWidth/wrap.clientHeight,0.1,60);
+  camera.position.z=4;
+
+  scene.add(new THREE.AmbientLight(0xffffff,0.5));
+  const pl1=new THREE.PointLight(0xff5c5c,3,14); pl1.position.set(3,3,3); scene.add(pl1);
+  const pl2=new THREE.PointLight(0x3d8bfd,2,14); pl2.position.set(-3,-2,3); scene.add(pl2);
+
+  const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1,2),new THREE.MeshPhongMaterial({color:0xa259ff,transparent:true,opacity:0.6,shininess:90,emissive:0x220033}));
+  scene.add(core);
+  const shell=new THREE.Mesh(new THREE.IcosahedronGeometry(1.08,2),new THREE.MeshBasicMaterial({color:0xff5c5c,wireframe:true,transparent:true,opacity:0.25}));
+  scene.add(shell);
+
+  const blobCols=[0xff5c5c,0xffb830,0x4caf50,0x3d8bfd,0xa259ff,0xff8a3d,0xff5fa2,0x2ec4b6];
+  const blobs=blobCols.map((c,i)=>{
+    const m=new THREE.Mesh(new THREE.SphereGeometry(0.08+Math.random()*0.06,8,8),new THREE.MeshPhongMaterial({color:c,emissive:c,emissiveIntensity:0.6}));
+    m._angle=(i/blobCols.length)*Math.PI*2; m._radius=1.45+Math.random()*0.3; m._tilt=(Math.random()-0.5)*0.8; m._speed=0.012+Math.random()*0.01;
+    scene.add(m); return m;
+  });
+  [[1.55,0xff5c5c,Math.PI/3],[1.75,0xffb830,Math.PI/1.6],[1.92,0x3d8bfd,Math.PI/2.2]].forEach(([r,c,rx])=>{
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(r,0.012,6,80),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:0.4}));
+    ring.rotation.x=rx; scene.add(ring); blobs.push(ring);
+  });
+
+  let T2=0;
+  function anim(){
+    requestAnimationFrame(anim); T2+=0.008;
+    core.rotation.y+=0.004; core.rotation.x+=0.002;
+    shell.rotation.y-=0.006; shell.rotation.z+=0.003;
+    blobs.forEach(b=>{
+      if(b._angle!==undefined){
+        b._angle+=b._speed;
+        b.position.x=Math.cos(b._angle)*b._radius;
+        b.position.y=Math.sin(b._angle)*b._radius*0.5+b._tilt;
+        b.position.z=Math.sin(b._angle)*b._radius*0.3;
+      } else { b.rotation.z+=0.004; b.rotation.x+=0.002; }
+    });
+    pl1.position.x=Math.sin(T2*0.7)*4; pl1.position.y=Math.cos(T2*0.5)*3;
+    pl2.position.x=Math.cos(T2*0.8)*4; pl2.position.y=Math.sin(T2*0.6)*3;
+    renderer.render(scene,camera);
+  }
+  anim();
+})();
+
+/* ============ SERVICE CARD 3D TILT ============ */
+qsa('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+    card.style.transform=`perspective(700px) rotateY(${x*16}deg) rotateX(${-y*16}deg) translateY(-10px)`;
+    card.style.transition='transform 0.05s ease';
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='perspective(700px) rotateY(0) rotateX(0) translateY(0)';
+    card.style.transition='transform 0.55s ease';
+  });
+});
+
+/* ============ 3D GALLERY SLIDER — BIG, AUTO-ROTATING, CLICK TO ZOOM ============ */
+(function slider(){
+  const canvas=qs('#sliderCanvas'); if(!canvas) return;
+  const outer=canvas.parentElement;
+  const W=()=>outer.clientWidth, H=()=>outer.clientHeight;
+
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  function resize(){ renderer.setSize(W(),H()); cam.aspect=W()/H(); cam.updateProjectionMatrix(); }
+
+  const scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x2b2420);
+  scene.fog=new THREE.FogExp2(0x2b2420,0.028);
+
+  const cam=new THREE.PerspectiveCamera(48,W()/H(),0.1,90);
+  cam.position.set(0,0.5,10.5);
+  resize();
+  window.addEventListener('resize',resize);
+
+  scene.add(new THREE.AmbientLight(0xffffff,0.55));
+  const spot=new THREE.SpotLight(0xffffff,2.6,28,Math.PI/5,0.25); spot.position.set(0,9,9); scene.add(spot);
+  const fill=new THREE.PointLight(0xa259ff,1.3,22); fill.position.set(0,-5,-4); scene.add(fill);
+  const rimL=new THREE.PointLight(0x3d8bfd,0.9,18); rimL.position.set(-9,3,0); scene.add(rimL);
+  const rimR=new THREE.PointLight(0xff5c5c,0.9,18); rimR.position.set(9,3,0); scene.add(rimR);
+
+  function label(c,S,title,medium,col){
+    col = col || '#fff';
+    c.save();
+    c.fillStyle='rgba(0,0,0,0.55)'; c.fillRect(0,S-88,S,88);
+    c.fillStyle=col; c.shadowColor='rgba(0,0,0,0.8)'; c.shadowBlur=8;
+    c.font='bold '+(S/17)+'px Georgia, serif';
+    c.textAlign='center'; c.fillText(title,S/2,S-54);
+    c.font=(S/22)+'px Arial, sans-serif';
+    c.fillStyle=col==='#fff'?'rgba(255,255,255,0.65)':'rgba(0,0,0,0.55)';
+    c.fillText(medium,S/2,S-28);
+    c.restore();
+  }
+
+  const ARTWORKS=[
+    {title:'Vibrant Flora Study',medium:'Watercolour on Paper',draw:function(c,S){
+      const bg=c.createLinearGradient(0,0,S,S); bg.addColorStop(0,'#1a0a2e'); bg.addColorStop(1,'#0d1b2a'); c.fillStyle=bg; c.fillRect(0,0,S,S);
+      const petals=[{x:S*.3,y:S*.4,r:130,c1:'#ff6b6b',c2:'#ffd93d'},{x:S*.7,y:S*.35,r:100,c1:'#c77dff',c2:'#ff6b6b'},{x:S*.5,y:S*.65,r:90,c1:'#6bcb77',c2:'#ffd93d'},{x:S*.2,y:S*.7,r:75,c1:'#4d96ff',c2:'#6bcb77'},{x:S*.78,y:S*.7,r:85,c1:'#ffd93d',c2:'#ff9f43'}];
+      petals.forEach(function(p){ for(let i=0;i<3;i++){ const g=c.createRadialGradient(p.x-20,p.y-20,0,p.x,p.y,p.r*(1+i*.3)); g.addColorStop(0,p.c1+'cc'); g.addColorStop(0.5,p.c2+'88'); g.addColorStop(1,'transparent'); c.fillStyle=g; c.beginPath(); c.arc(p.x,p.y,p.r*(1+i*.3),0,Math.PI*2); c.fill(); } });
+      c.strokeStyle='#6bcb7799'; c.lineWidth=6; c.lineCap='round';
+      [[S*.3,S*.6,S*.3,S*.9],[S*.7,S*.5,S*.7,S*.9],[S*.5,S*.75,S*.5,S*.9]].forEach(function(p){ c.beginPath(); c.moveTo(p[0],p[1]); c.quadraticCurveTo(p[0]+20,p[1]+30,p[2],p[3]); c.stroke(); });
+      label(c,S,'Vibrant Flora Study','Watercolour on Paper');
+    }},
+    {title:'Ocean Depth Portrait',medium:'Digital Painting',draw:function(c,S){
+      const bg=c.createLinearGradient(0,0,0,S); bg.addColorStop(0,'#001233'); bg.addColorStop(0.5,'#023e8a'); bg.addColorStop(1,'#0096c7'); c.fillStyle=bg; c.fillRect(0,0,S,S);
+      for(let i=0;i<8;i++){ c.beginPath(); c.moveTo(0,S*(.4+i*.08)); for(let x=0;x<=S;x+=20) c.lineTo(x,S*(.4+i*.08)+Math.sin(x/40+i)*18); c.strokeStyle='rgba(0,180,216,'+(0.08+i*.03)+')'; c.lineWidth=3+i*2; c.stroke(); }
+      c.fillStyle='rgba(0,30,60,0.8)'; c.beginPath(); c.ellipse(S/2,S*.45,80,100,0,0,Math.PI*2); c.fill(); c.beginPath(); c.ellipse(S/2,S*.32,45,52,0,0,Math.PI*2); c.fill();
+      const gl=c.createRadialGradient(S/2,S*.45,0,S/2,S*.45,140); gl.addColorStop(0,'rgba(0,180,216,0.3)'); gl.addColorStop(1,'transparent'); c.fillStyle=gl; c.beginPath(); c.arc(S/2,S*.45,140,0,Math.PI*2); c.fill();
+      for(let i=0;i<16;i++){ c.beginPath(); c.arc(Math.random()*S,Math.random()*S,3+Math.random()*10,0,Math.PI*2); c.strokeStyle='rgba(0,180,216,0.4)'; c.lineWidth=1; c.stroke(); }
+      label(c,S,'Ocean Depth Portrait','Digital Painting');
+    }},
+    {title:'Twilight Cityscape',medium:'Acrylic on Canvas',draw:function(c,S){
+      const sky=c.createLinearGradient(0,0,0,S); sky.addColorStop(0,'#1a1a2e'); sky.addColorStop(0.5,'#e94560'); sky.addColorStop(0.7,'#f5a623'); sky.addColorStop(1,'#1a1a2e'); c.fillStyle=sky; c.fillRect(0,0,S,S);
+      const mg=c.createRadialGradient(S*.75,S*.2,0,S*.75,S*.2,55); mg.addColorStop(0,'rgba(255,240,200,0.95)'); mg.addColorStop(1,'transparent'); c.fillStyle=mg; c.beginPath(); c.arc(S*.75,S*.2,55,0,Math.PI*2); c.fill();
+      const bldgs=[[0,.7,.12,.95],[.13,.55,.1,.95],[.24,.65,.14,.95],[.39,.5,.1,.95],[.5,.6,.12,.95],[.63,.45,.14,.95],[.78,.62,.1,.95],[.89,.55,.11,1]];
+      bldgs.forEach(function(b){ const x=b[0],y=b[1],w=b[2],h=b[3]; c.fillStyle='rgba(10,10,30,0.9)'; c.fillRect(x*S,y*S,w*S,(h-y)*S); for(let wy=y+.05;wy<h-.05;wy+=.06) for(let wx=x+.015;wx<x+w-.01;wx+=.03){ if(Math.random()>.4){ c.fillStyle='rgba(255,220,100,0.7)'; c.fillRect(wx*S,wy*S,7,5); } } });
+      const ref=c.createLinearGradient(0,S*.88,0,S); ref.addColorStop(0,'rgba(233,69,96,0.3)'); ref.addColorStop(1,'rgba(26,26,46,0.9)'); c.fillStyle=ref; c.fillRect(0,S*.88,S,S*.12);
+      label(c,S,'Twilight Cityscape','Acrylic on Canvas');
+    }},
+    {title:'Abstract Emotion No. 4',medium:'Mixed Media',draw:function(c,S){
+      c.fillStyle='#0a0010'; c.fillRect(0,0,S,S);
+      const forms=[{x:.5,y:.5,r:.45,c:'#c77dff'},{x:.3,y:.35,r:.3,c:'#ff6b6b'},{x:.7,y:.6,r:.25,c:'#4d96ff'},{x:.45,y:.7,r:.2,c:'#ffd93d'},{x:.6,y:.25,r:.22,c:'#6bcb77'}];
+      forms.forEach(function(f){ const g=c.createRadialGradient(f.x*S,f.y*S,0,f.x*S,f.y*S,f.r*S); g.addColorStop(0,f.c+'cc'); g.addColorStop(0.6,f.c+'55'); g.addColorStop(1,'transparent'); c.fillStyle=g; c.beginPath(); c.arc(f.x*S,f.y*S,f.r*S,0,Math.PI*2); c.fill(); });
+      const lCols=['#ff6b6b','#ffd93d','#c77dff','#4d96ff','#6bcb77'];
+      for(let i=0;i<18;i++){ c.beginPath(); c.moveTo(Math.random()*S,Math.random()*S); c.bezierCurveTo(Math.random()*S,Math.random()*S,Math.random()*S,Math.random()*S,Math.random()*S,Math.random()*S); c.strokeStyle=lCols[i%lCols.length]+'88'; c.lineWidth=2+Math.random()*6; c.lineCap='round'; c.stroke(); }
+      label(c,S,'Abstract Emotion No. 4','Mixed Media');
+    }},
+    {title:'Forest Spirit',medium:'Gouache on Board',draw:function(c,S){
+      const bg=c.createLinearGradient(0,0,0,S); bg.addColorStop(0,'#001a00'); bg.addColorStop(0.5,'#003300'); bg.addColorStop(1,'#001a00'); c.fillStyle=bg; c.fillRect(0,0,S,S);
+      for(let i=0;i<12;i++){ const tx=i*(S/11); c.fillStyle='rgba(0,'+(30+i*5)+',0,0.85)'; c.fillRect(tx-8,S*.3,16,S*.7); }
+      const sg=c.createRadialGradient(S/2,S*.4,0,S/2,S*.4,80); sg.addColorStop(0,'rgba(180,255,180,0.7)'); sg.addColorStop(0.5,'rgba(100,255,150,0.3)'); sg.addColorStop(1,'transparent'); c.fillStyle=sg; c.beginPath(); c.ellipse(S/2,S*.4,60,90,0,0,Math.PI*2); c.fill();
+      for(let i=0;i<30;i++){ c.beginPath(); c.arc(Math.random()*S,Math.random()*S*.7,2+Math.random()*3,0,Math.PI*2); c.fillStyle='rgba('+(180+Math.random()*75)+',255,'+(100+Math.random()*100)+','+(0.5+Math.random()*0.5)+')'; c.fill(); }
+      label(c,S,'Forest Spirit','Gouache on Board');
+    }},
+    {title:'Golden Hour Figure',medium:'Oil on Canvas',draw:function(c,S){
+      const sky=c.createLinearGradient(0,0,0,S); sky.addColorStop(0,'#1a0533'); sky.addColorStop(0.4,'#c1440e'); sky.addColorStop(0.65,'#f5a623'); sky.addColorStop(1,'#1a0533'); c.fillStyle=sky; c.fillRect(0,0,S,S);
+      const sg=c.createRadialGradient(S*.5,S*.55,0,S*.5,S*.55,120); sg.addColorStop(0,'rgba(255,240,180,0.95)'); sg.addColorStop(0.3,'rgba(245,166,35,0.6)'); sg.addColorStop(1,'transparent'); c.fillStyle=sg; c.beginPath(); c.arc(S*.5,S*.55,120,0,Math.PI*2); c.fill();
+      c.fillStyle='rgba(8,4,16,0.92)'; c.beginPath(); c.ellipse(S*.5,S*.38,28,36,0,0,Math.PI*2); c.fill(); c.beginPath(); c.ellipse(S*.5,S*.62,30,55,0,0,Math.PI*2); c.fill();
+      c.lineWidth=14; c.strokeStyle='rgba(8,4,16,0.92)'; c.lineCap='round';
+      c.beginPath(); c.moveTo(S*.5,S*.55); c.lineTo(S*.25,S*.45); c.stroke();
+      c.beginPath(); c.moveTo(S*.5,S*.55); c.lineTo(S*.75,S*.7); c.stroke();
+      label(c,S,'Golden Hour Figure','Oil on Canvas');
+    }},
+    {title:'Cosmic Dreams',medium:'Digital Illustration',draw:function(c,S){
+      c.fillStyle='#000010'; c.fillRect(0,0,S,S);
+      const nebulas=[{x:.4,y:.4,c:'#c77dff'},{x:.65,y:.55,c:'#4d96ff'},{x:.3,y:.65,c:'#ff6b6b'}];
+      nebulas.forEach(function(n){ for(let i=0;i<4;i++){ const g=c.createRadialGradient(n.x*S+(i-2)*30,n.y*S+(i-2)*20,0,n.x*S,n.y*S,150+i*30); g.addColorStop(0,n.c+'44'); g.addColorStop(1,'transparent'); c.fillStyle=g; c.fillRect(0,0,S,S); } });
+      for(let i=0;i<220;i++){ const x=Math.random()*S,y=Math.random()*S,r=Math.random()*2.2; c.beginPath(); c.arc(x,y,r,0,Math.PI*2); c.fillStyle='rgba(255,255,255,'+(0.3+Math.random()*.7)+')'; c.fill(); }
+      const pg=c.createRadialGradient(S*.65,S*.35,0,S*.65,S*.35,70); pg.addColorStop(0,'#4d96ff'); pg.addColorStop(0.6,'#1a0070'); pg.addColorStop(1,'transparent'); c.fillStyle=pg; c.beginPath(); c.arc(S*.65,S*.35,70,0,Math.PI*2); c.fill();
+      label(c,S,'Cosmic Dreams','Digital Illustration');
+    }},
+    {title:"Children's Book Page",medium:'Pen & Watercolour',draw:function(c,S){
+      c.fillStyle='#fffdf5'; c.fillRect(0,0,S,S);
+      const hCols=['#d4edda','#b8dfc4','#9ed3ae'];
+      hCols.forEach(function(col,i){ c.fillStyle=col; c.beginPath(); c.moveTo(0,S*(.55+i*.07)); for(let x=0;x<=S;x+=S/10) c.quadraticCurveTo(x+S/20,S*(.45+i*.07)-30*Math.sin(x/S*Math.PI),x+S/10,S*(.55+i*.07)); c.lineTo(S,S); c.lineTo(0,S); c.closePath(); c.fill(); });
+      c.fillStyle='rgba(255,220,50,0.85)'; c.beginPath(); c.arc(S*.75,S*.18,45,0,Math.PI*2); c.fill();
+      c.fillStyle='#e8c99a'; c.fillRect(S*.3,S*.52,S*.2,S*.2);
+      c.fillStyle='#c0392b'; c.beginPath(); c.moveTo(S*.27,S*.52); c.lineTo(S*.5,S*.36); c.lineTo(S*.53,S*.52); c.closePath(); c.fill();
+      c.fillStyle='rgba(77,150,255,0.6)'; c.fillRect(S*.37,S*.58,S*.06,S*.08);
+      c.fillStyle='#7f5539'; c.fillRect(S*.42,S*.63,S*.05,S*.09);
+      [S*.1,S*.2,S*.8,S*.88].forEach(function(fx){ c.fillStyle='#ff6b6b'; c.beginPath(); c.arc(fx,S*.65,14,0,Math.PI*2); c.fill(); c.fillStyle='#ffd93d'; c.beginPath(); c.arc(fx,S*.65,7,0,Math.PI*2); c.fill(); c.fillStyle='#6bcb77'; c.fillRect(fx-2,S*.65,4,25); });
+      label(c,S,"Children's Book Page",'Pen & Watercolour','#333');
+    }},
+    {title:'Still Life in Blue',medium:'Pastel Drawing',draw:function(c,S){
+      const bg=c.createLinearGradient(0,0,0,S); bg.addColorStop(0,'#0a1628'); bg.addColorStop(1,'#162544'); c.fillStyle=bg; c.fillRect(0,0,S,S);
+      c.fillStyle='rgba(30,50,90,0.9)'; c.beginPath(); c.moveTo(0,S*.65); c.lineTo(S,S*.65); c.lineTo(S,S); c.lineTo(0,S); c.closePath(); c.fill();
+      c.fillStyle='rgba(70,130,220,0.8)'; c.beginPath(); c.moveTo(S*.38,S*.65); c.lineTo(S*.32,S*.45); c.lineTo(S*.38,S*.3); c.lineTo(S*.62,S*.3); c.lineTo(S*.68,S*.45); c.lineTo(S*.62,S*.65); c.closePath(); c.fill();
+      const fls=[{x:.45,c:'#ff6b6b'},{x:.5,c:'#ffd93d'},{x:.55,c:'#c77dff'},{x:.42,c:'#6bcb77'},{x:.58,c:'#ff9f43'}];
+      fls.forEach(function(f){ c.strokeStyle='#4a7c59'; c.lineWidth=3; c.beginPath(); c.moveTo(f.x*S,S*.3); c.lineTo(f.x*S+(Math.random()-.5)*20,S*.18); c.stroke(); c.fillStyle=f.c; c.beginPath(); c.arc(f.x*S+(Math.random()-.5)*15,S*.16,16,0,Math.PI*2); c.fill(); });
+      label(c,S,'Still Life in Blue','Pastel Drawing');
+    }},
+    {title:'Street Art Mural',medium:'Spray Paint Study',draw:function(c,S){
+      c.fillStyle='#1a1a1a'; c.fillRect(0,0,S,S);
+      for(let row=0;row<16;row++) for(let col=0;col<8;col++){ const ox=row%2===0?0:S/16; c.strokeStyle='rgba(60,40,30,0.6)'; c.lineWidth=2; c.strokeRect(col*S/8+ox+2,row*S/15+2,S/8-4,S/15-4); }
+      const gCols=['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#c77dff'];
+      gCols.forEach(function(col,i){
+        c.fillStyle=col+'cc';
+        const rx=S*(.08+i*.16),ry=S*.25+Math.sin(i)*20,rw=S*.14,rh=S*.45,rr=18;
+        c.beginPath();
+        c.moveTo(rx+rr,ry);
+        c.lineTo(rx+rw-rr,ry);
+        c.quadraticCurveTo(rx+rw,ry,rx+rw,ry+rr);
+        c.lineTo(rx+rw,ry+rh-rr);
+        c.quadraticCurveTo(rx+rw,ry+rh,rx+rw-rr,ry+rh);
+        c.lineTo(rx+rr,ry+rh);
+        c.quadraticCurveTo(rx,ry+rh,rx,ry+rh-rr);
+        c.lineTo(rx,ry+rr);
+        c.quadraticCurveTo(rx,ry,rx+rr,ry);
+        c.closePath();
+        c.fill();
+        c.strokeStyle='rgba(255,255,255,0.4)'; c.lineWidth=2; c.stroke();
+      });
+      for(let i=0;i<60;i++){ c.beginPath(); c.arc(Math.random()*S,Math.random()*S,1+Math.random()*5,0,Math.PI*2); c.fillStyle=gCols[Math.floor(Math.random()*gCols.length)]+'88'; c.fill(); }
+      label(c,S,'Street Art Mural','Spray Paint Study','#fff');
+    }}
+  ];
+
+  function makeTexture(artObj){
+    const sz=900, oc=document.createElement('canvas'); oc.width=oc.height=sz;
+    const c=oc.getContext('2d'); artObj.draw(c,sz);
+    artObj._sourceCanvas=oc;
+    return new THREE.CanvasTexture(oc);
+  }
+  function makeFrameMat(color){
+    // Glass transparent frame — no yellow/wood color
+    return new THREE.MeshPhongMaterial({
+      color:0xffffff,
+      transparent:true,
+      opacity:0.08,
+      shininess:200,
+      reflectivity:1,
+      specular:new THREE.Color(0xffffff)
+    });
+  }
+  function makeGlassEdge(){
+    // Iridescent glass edge material
+    return new THREE.MeshPhongMaterial({
+      color:0xffffff,
+      transparent:true,
+      opacity:0.28,
+      shininess:300,
+      specular:new THREE.Color(0xaaddff),
+      side:THREE.DoubleSide
+    });
+  }
+
+  const N=ARTWORKS.length;
+  const RADIUS=7.4;
+  const CW=4.6, CH=3.1;
+  const panels=[];
+
+  for(let i=0;i<N;i++){
+    const angle=(i/N)*Math.PI*2;
+    const group=new THREE.Group();
+
+    const plane=new THREE.Mesh(new THREE.PlaneGeometry(CW,CH),new THREE.MeshPhongMaterial({map:makeTexture(ARTWORKS[i]),shininess:18}));
+    plane._artworkIndex=i; plane._isArtPlane=true;
+    group.add(plane);
+
+    const frameParts=[
+      [CW+0.18,0.16,0,-(CH+0.16)/2],
+      [CW+0.18,0.16,0,(CH+0.16)/2],
+      [0.16,CH+0.16,-(CW+0.16)/2,0],
+      [0.16,CH+0.16,(CW+0.16)/2,0]
+    ];
+    frameParts.forEach(function(p){
+      // Glass frame border — no wooden yellow color
+      const glassMat = new THREE.MeshPhongMaterial({
+        color:0xffffff, transparent:true, opacity:0.18,
+        shininess:300, specular:new THREE.Color(0xaaeeff),
+        side:THREE.DoubleSide
+      });
+      const f=new THREE.Mesh(new THREE.BoxGeometry(p[0],p[1],0.06),glassMat);
+      f.position.set(p[2],p[3],-0.03); group.add(f);
+      // Inner glow rim
+      const rimMat = new THREE.MeshBasicMaterial({
+        color:0xffffff, transparent:true, opacity:0.35, side:THREE.FrontSide
+      });
+      const rim=new THREE.Mesh(new THREE.BoxGeometry(p[0]-0.04,p[1]-0.04,0.01),rimMat);
+      rim.position.set(p[2],p[3],0.01); group.add(rim);
+    });
+
+    const shadow=new THREE.Mesh(new THREE.PlaneGeometry(CW+0.7,CH+0.7),new THREE.MeshBasicMaterial({color:0x000000,transparent:true,opacity:0.45}));
+    shadow.position.z=-0.2; shadow.position.y=-0.16;
+    group.add(shadow);
+
+    group.position.x=Math.sin(angle)*RADIUS;
+    group.position.z=Math.cos(angle)*RADIUS-RADIUS;
+    group.rotation.y=-angle;
+    group._baseAngle=angle;
+    group._artwork=ARTWORKS[i];
+
+    scene.add(group); panels.push(group);
+  }
+
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(44,44),new THREE.MeshPhongMaterial({color:0x2b2420,shininess:60,transparent:true,opacity:0.55}));
+  floor.rotation.x=-Math.PI/2; floor.position.y=-CH/2-0.08;
+  scene.add(floor);
+
+  const dustGeo=new THREE.BufferGeometry();
+  const dustPos=new Float32Array(500*3);
+  for(let i=0;i<500;i++){ dustPos[i*3]=(Math.random()-0.5)*30; dustPos[i*3+1]=(Math.random()-0.5)*16; dustPos[i*3+2]=(Math.random()-0.5)*24-5; }
+  dustGeo.setAttribute('position',new THREE.BufferAttribute(dustPos,3));
+  scene.add(new THREE.Points(dustGeo,new THREE.PointsMaterial({color:0xffd93d,size:0.04,transparent:true,opacity:0.3,sizeAttenuation:true})));
+
+  const dotsEl=qs('#slDots');
+  ARTWORKS.forEach(function(a,i){
+    const d=document.createElement('div');
+    d.className='sl-dot'+(i===0?' active':'');
+    d.addEventListener('click',function(){ goTo(i); resetAuto(); });
+    dotsEl.appendChild(d);
+  });
+
+  let current=0, targetAngle=0, lerpAngle=0;
+
+  function goTo(idx){
+    current=((idx%N)+N)%N;
+    targetAngle=-(current/N)*Math.PI*2;
+    qs('#slideTitle').textContent=ARTWORKS[current].title;
+    qs('#slideMedium').textContent=ARTWORKS[current].medium;
+    qsa('.sl-dot').forEach(function(d,i){ d.classList.toggle('active',i===current); });
+  }
+  qs('#prevBtn').addEventListener('click',function(){ goTo(current-1); resetAuto(); });
+  qs('#nextBtn').addEventListener('click',function(){ goTo(current+1); resetAuto(); });
+
+  let auto=setInterval(function(){ goTo(current+1); },3500);
+  function resetAuto(){ clearInterval(auto); auto=setInterval(function(){ goTo(current+1); },3500); }
+
+  /* ---- Click to zoom via raycasting ---- */
+  const raycaster=new THREE.Raycaster();
+  const pointerNDC=new THREE.Vector2();
+
+  function castClick(clientX,clientY){
+    const rect=canvas.getBoundingClientRect();
+    pointerNDC.x=((clientX-rect.left)/rect.width)*2-1;
+    pointerNDC.y=-((clientY-rect.top)/rect.height)*2+1;
+    raycaster.setFromCamera(pointerNDC,cam);
+    const planes=panels.map(function(g){ return g.children.find(function(c){ return c._isArtPlane; }); });
+    const hits=raycaster.intersectObjects(planes,false);
+    if(hits.length>0){
+      const idx=hits[0].object._artworkIndex;
+      if(idx===current){
+        openArtModal(ARTWORKS[idx]);
+      } else {
+        goTo(idx); resetAuto();
+      }
+    }
+  }
+
+  let mx0=0,my0=0,isDown=false,moved=false;
+  canvas.addEventListener('mousedown',function(e){ mx0=e.clientX; my0=e.clientY; isDown=true; moved=false; });
+  canvas.addEventListener('mousemove',function(e){ if(isDown && (Math.abs(e.clientX-mx0)>6||Math.abs(e.clientY-my0)>6)) moved=true; });
+  canvas.addEventListener('mouseup',function(e){
+    if(!isDown) return; isDown=false;
+    const dx=e.clientX-mx0;
+    if(Math.abs(dx)>40){ dx<0?goTo(current+1):goTo(current-1); resetAuto(); }
+    else if(!moved){ castClick(e.clientX,e.clientY); }
+  });
+  canvas.addEventListener('touchstart',function(e){ const t=e.touches[0]; mx0=t.clientX; my0=t.clientY; isDown=true; moved=false; });
+  canvas.addEventListener('touchmove',function(){ moved=true; });
+  canvas.addEventListener('touchend',function(e){
+    if(!isDown) return; isDown=false;
+    const t=e.changedTouches[0];
+    const dx=t.clientX-mx0;
+    if(Math.abs(dx)>40){ dx<0?goTo(current+1):goTo(current-1); resetAuto(); }
+    else if(!moved){ castClick(t.clientX,t.clientY); }
+  });
+
+  let ST=0;
+  function animSlider(){
+    requestAnimationFrame(animSlider); ST+=0.008;
+    lerpAngle+=(targetAngle-lerpAngle)*0.055;
+    panels.forEach(function(g,i){
+      const a=g._baseAngle+lerpAngle;
+      g.position.x=Math.sin(a)*RADIUS;
+      g.position.z=Math.cos(a)*RADIUS-RADIUS;
+      g.rotation.y=-a;
+      const isActive=i===current;
+      const distToFront=Math.cos(a);
+      const targetScale=isActive?1.05+Math.sin(ST*1.8)*0.015:0.78+distToFront*0.15;
+      g.scale.setScalar(g.scale.x+(targetScale-g.scale.x)*0.08);
+      const mesh=g.children[0];
+      if(mesh.material){ mesh.material.opacity=0.35+(distToFront*0.5+0.5)*0.65; mesh.material.transparent=true; }
+    });
+    spot.position.x=Math.sin(ST*0.25)*4;
+    cam.position.y=0.5+Math.sin(ST*0.3)*0.18;
+    cam.lookAt(0,0,-RADIUS);
+    renderer.render(scene,cam);
+  }
+  animSlider();
+
+  /* ---- Zoom Modal ---- */
+  const artModalEl=qs('#artModal');
+  const modalCanvas=qs('#modalCanvas');
+  const modalCtx=modalCanvas.getContext('2d');
+  const modalTitleEl=qs('#modalTitle');
+  const modalMediumEl=qs('#modalMedium');
+
+  window.openArtModal=function(art){
+    const size=900;
+    modalCanvas.width=size; modalCanvas.height=size;
+    if(art._sourceCanvas){ modalCtx.clearRect(0,0,size,size); modalCtx.drawImage(art._sourceCanvas,0,0,size,size); }
+    else if(art.draw){ art.draw(modalCtx,size); }
+    modalTitleEl.textContent=art.title;
+    modalMediumEl.textContent=art.medium;
+    artModalEl.classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+  function closeArtModal(){ artModalEl.classList.remove('open'); document.body.style.overflow=''; }
+  qs('#artModalClose').addEventListener('click',closeArtModal);
+  qs('.art-modal-backdrop').addEventListener('click',closeArtModal);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&artModalEl.classList.contains('open')) closeArtModal(); });
+
+})();
+
+} // end THREE check
+
+/* ============ SCROLL REVEAL ============ */
+(function scrollReveal(){
+  const items=qsa('.svc-card,.testi-card,.stat,.cinfo-item,.about-text>*,.sec-head>*');
+  const io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,idx){
+      if(e.isIntersecting){ setTimeout(function(){ e.target.classList.add('reveal','visible'); },idx*70); io.unobserve(e.target); }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -50px 0px'});
+  items.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
+})();
+
+/* ============ CONTACT FORM ============ */
+const form=qs('#contactForm'), fStatus=qs('#formStatus');
+if(form){
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn=qs('#submitBtn');
+    const action=form.getAttribute('action');
+    if(action.indexOf('YOUR_FORM_ID')!==-1){
+      fStatus.textContent='⚠️ Set up Formspree: go to formspree.io, create a free form, copy the ID and replace YOUR_FORM_ID in the form action.';
+      fStatus.className='form-status error'; return;
+    }
+    btn.disabled=true; btn.querySelector('span').textContent='Sending…';
+    try{
+      const res=await fetch(action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+      if(res.ok){ fStatus.textContent='✦ Message sent! I\'ll reply within 24 hours.'; fStatus.className='form-status success'; form.reset(); confetti(); }
+      else { throw new Error('Something went wrong. Please try again.'); }
+    } catch(err){ fStatus.textContent='✕ '+err.message; fStatus.className='form-status error'; }
+    finally{ btn.disabled=false; btn.querySelector('span').textContent='Send Message ✦'; setTimeout(function(){ fStatus.className='form-status'; fStatus.textContent=''; },6000); }
+  });
+}
+function confetti(){
+  const cols=['#ff5c5c','#ffb830','#4caf50','#3d8bfd','#a259ff'];
+  for(let i=0;i<70;i++){
+    const el=document.createElement('div'); const size=6+Math.random()*10;
+    el.style.cssText='position:fixed;top:'+(20+Math.random()*60)+'%;left:'+(10+Math.random()*80)+'%;width:'+size+'px;height:'+size+'px;background:'+cols[i%cols.length]+';border-radius:'+(Math.random()>.5?'50%':'3px')+';pointer-events:none;z-index:9999;animation:cfall '+(0.7+Math.random()*1.3)+'s ease forwards';
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); },2200);
+  }
+}
+const cfKf=document.createElement('style');
+cfKf.textContent='@keyframes cfall{0%{transform:translateY(0) scale(1) rotate(0deg);opacity:1}100%{transform:translateY(130px) scale(0) rotate(360deg);opacity:0}}';
+document.head.appendChild(cfKf);
+
+
+/* ============ PRELOADER — 3D GLASS BOWL WITH COLOUR POUR ============ */
+(function runPreloader(){
+  const preloader = document.getElementById('preloader');
+  const pctEl     = document.getElementById('preloaderPct');
+  const pCanvas   = document.getElementById('preloaderCanvas');
+  if(!preloader || !pCanvas) return;
+
+  const ctx = pCanvas.getContext('2d');
+  const W = pCanvas.width, H = pCanvas.height;   // 480 x 520
+  const cx = W / 2;
+
+  // Bowl geometry
+  const BOWL_TOP_Y  = 60;   // rim top
+  const BOWL_BOT_Y  = H - 40; // bottom of bowl
+  const BOWL_HEIGHT = BOWL_BOT_Y - BOWL_TOP_Y;
+  const BOWL_RX_TOP = 190;  // half-width at top rim
+  const BOWL_RX_BOT = 80;   // half-width at bottom
+  const BOWL_THICKNESS = 6;
+
+  // Paint colours that pour in sequence
+  const LAYERS = [
+    '#ff5c5c', '#ff8a3d', '#ffb830',
+    '#4caf50', '#2ec4b6', '#3d8bfd',
+    '#a259ff', '#ff5fa2'
+  ];
+
+  let pct = 0, frame = 0;
+  let liquidWave = 0;
+
+  // droplets pouring from above
+  const drops = [];
+  function spawnDrop(pct){
+    const layerIdx = Math.floor((pct / 100) * LAYERS.length);
+    const col = LAYERS[Math.min(layerIdx, LAYERS.length - 1)];
+    const streakCol = LAYERS[Math.min(layerIdx + 1, LAYERS.length - 1)];
+    drops.push({
+      x: cx + (Math.random() - 0.5) * 30,
+      y: BOWL_TOP_Y - 80 - Math.random() * 40,
+      vy: 4 + Math.random() * 3,
+      r: 6 + Math.random() * 8,
+      color: col,
+      alpha: 1,
+      alive: true
+    });
+  }
+
+  function getBowlX(y) {
+    // Linear interpolation: how wide is the bowl at this y?
+    const t = (y - BOWL_TOP_Y) / BOWL_HEIGHT;
+    return BOWL_RX_BOT + (BOWL_RX_TOP - BOWL_RX_BOT) * (1 - t * t * 0.6);
+  }
+
+  function drawBowl(){
+    // ---- DRAW BOWL OUTLINE (trapezoid-ish, rounded) ----
+    ctx.save();
+
+    // Outer bowl shape
+    ctx.beginPath();
+    ctx.moveTo(cx - BOWL_RX_TOP, BOWL_TOP_Y);
+    ctx.bezierCurveTo(
+      cx - BOWL_RX_TOP, BOWL_TOP_Y + BOWL_HEIGHT * 0.3,
+      cx - BOWL_RX_BOT, BOWL_BOT_Y - 30,
+      cx,               BOWL_BOT_Y
+    );
+    ctx.bezierCurveTo(
+      cx + BOWL_RX_BOT, BOWL_BOT_Y - 30,
+      cx + BOWL_RX_TOP, BOWL_TOP_Y + BOWL_HEIGHT * 0.3,
+      cx + BOWL_RX_TOP, BOWL_TOP_Y
+    );
+    ctx.closePath();
+
+    // Glass body fill
+    const glassGrad = ctx.createLinearGradient(cx - BOWL_RX_TOP, 0, cx + BOWL_RX_TOP, H);
+    glassGrad.addColorStop(0,   'rgba(255,255,255,0.28)');
+    glassGrad.addColorStop(0.3, 'rgba(220,230,255,0.14)');
+    glassGrad.addColorStop(0.7, 'rgba(200,210,255,0.10)');
+    glassGrad.addColorStop(1,   'rgba(255,255,255,0.22)');
+    ctx.fillStyle = glassGrad;
+    ctx.fill();
+
+    // Glass rim highlight
+    ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+    ctx.lineWidth = BOWL_THICKNESS;
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  function drawLiquid(){
+    if(pct <= 0) return;
+    const fillH = (pct / 100) * BOWL_HEIGHT;
+    const liquidTopY = BOWL_BOT_Y - fillH;
+
+    ctx.save();
+    // Clip to bowl shape
+    ctx.beginPath();
+    ctx.moveTo(cx - BOWL_RX_TOP, BOWL_TOP_Y);
+    ctx.bezierCurveTo(
+      cx - BOWL_RX_TOP, BOWL_TOP_Y + BOWL_HEIGHT * 0.3,
+      cx - BOWL_RX_BOT, BOWL_BOT_Y - 30,
+      cx,               BOWL_BOT_Y
+    );
+    ctx.bezierCurveTo(
+      cx + BOWL_RX_BOT, BOWL_BOT_Y - 30,
+      cx + BOWL_RX_TOP, BOWL_TOP_Y + BOWL_HEIGHT * 0.3,
+      cx + BOWL_RX_TOP, BOWL_TOP_Y
+    );
+    ctx.closePath();
+    ctx.clip();
+
+    // Multi-layer liquid gradient
+    const layerIdx = (pct / 100) * (LAYERS.length - 1);
+    const lo = Math.floor(layerIdx), hi = Math.min(lo + 1, LAYERS.length - 1);
+    const t  = layerIdx - lo;
+
+    const liqGrad = ctx.createLinearGradient(0, liquidTopY, 0, BOWL_BOT_Y);
+    liqGrad.addColorStop(0,   LAYERS[Math.min(hi, LAYERS.length-1)] + 'cc');
+    liqGrad.addColorStop(0.4, LAYERS[lo] + 'dd');
+    liqGrad.addColorStop(1,   LAYERS[0] + 'ff');
+    ctx.fillStyle = liqGrad;
+    ctx.fillRect(0, liquidTopY, W, BOWL_BOT_Y - liquidTopY + 2);
+
+    // Wavy surface
+    liquidWave += 0.06;
+    ctx.beginPath();
+    for(let x = 0; x <= W; x += 6){
+      const bowlW = getBowlX(liquidTopY);
+      const rel = (x - cx) / bowlW;
+      if(Math.abs(rel) > 1){ continue; }
+      const wave = Math.sin(x * 0.03 + liquidWave) * 5 + Math.sin(x * 0.07 + liquidWave * 1.3) * 3;
+      if(x === 0) ctx.moveTo(x, liquidTopY + wave);
+      else ctx.lineTo(x, liquidTopY + wave);
+    }
+    ctx.lineTo(W, liquidTopY + 6);
+    ctx.lineTo(W, BOWL_BOT_Y);
+    ctx.lineTo(0, BOWL_BOT_Y);
+    ctx.closePath();
+    ctx.fillStyle = LAYERS[hi] + 'aa';
+    ctx.fill();
+
+    // Shine overlay on liquid
+    const shineGrad = ctx.createLinearGradient(cx - 60, liquidTopY, cx + 60, liquidTopY + 40);
+    shineGrad.addColorStop(0, 'rgba(255,255,255,0.32)');
+    shineGrad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = shineGrad;
+    ctx.fillRect(0, liquidTopY, W, 40);
+
+    // Bubble particles inside liquid
+    if(frame % 6 === 0 && pct > 5){
+      const bx = cx + (Math.random() - 0.5) * getBowlX(liquidTopY) * 1.2;
+      const by = liquidTopY + Math.random() * fillH * 0.7;
+      ctx.beginPath();
+      ctx.arc(bx, by, 3 + Math.random() * 5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.35)';
+      ctx.fill();
+    }
+
+    ctx.restore();
+  }
+
+  function drawDroplets(){
+    drops.forEach(function(d){
+      if(!d.alive) return;
+      d.y += d.vy;
+      d.vy += 0.4; // gravity
+      if(d.y > BOWL_BOT_Y - (pct/100) * BOWL_HEIGHT - 10){
+        d.alive = false; return;
+      }
+      ctx.save();
+      const grd = ctx.createRadialGradient(d.x - d.r*.3, d.y - d.r*.3, 0, d.x, d.y, d.r);
+      grd.addColorStop(0, d.color + 'ff');
+      grd.addColorStop(0.6, d.color + 'cc');
+      grd.addColorStop(1, d.color + '44');
+      ctx.beginPath();
+      // teardrop shape
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+      // elongated tail
+      ctx.beginPath();
+      ctx.moveTo(d.x - d.r * 0.4, d.y - d.r * 0.6);
+      ctx.lineTo(d.x + d.r * 0.4, d.y - d.r * 0.6);
+      ctx.lineTo(d.x, d.y - d.r * 2.5);
+      ctx.closePath();
+      ctx.fillStyle = d.color + '88';
+      ctx.fill();
+      ctx.restore();
+    });
+    // Remove dead drops
+    for(let i = drops.length - 1; i >= 0; i--){
+      if(!drops[i].alive) drops.splice(i, 1);
+    }
+  }
+
+  function drawGlassReflections(){
+    ctx.save();
+    // Left edge highlight
+    const lx = cx - BOWL_RX_TOP * 0.88;
+    const lg = ctx.createLinearGradient(lx, BOWL_TOP_Y + 20, lx + 14, BOWL_TOP_Y + 140);
+    lg.addColorStop(0, 'rgba(255,255,255,0.7)');
+    lg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.beginPath();
+    ctx.ellipse(lx + 6, BOWL_TOP_Y + 80, 6, 60, -0.18, 0, Math.PI * 2);
+    ctx.fillStyle = lg;
+    ctx.fill();
+    // Top rim gleam
+    const rg = ctx.createLinearGradient(cx - BOWL_RX_TOP * 0.5, BOWL_TOP_Y, cx + BOWL_RX_TOP * 0.5, BOWL_TOP_Y + 8);
+    rg.addColorStop(0, 'rgba(255,255,255,0)');
+    rg.addColorStop(0.4, 'rgba(255,255,255,0.85)');
+    rg.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.beginPath();
+    ctx.ellipse(cx, BOWL_TOP_Y + 3, BOWL_RX_TOP * 0.75, 5, 0, 0, Math.PI * 2);
+    ctx.fillStyle = rg;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Colour stream pouring from top (stream above bowl)
+  function drawPourStream(){
+    if(pct >= 99) return;
+    const layerIdx = Math.floor((pct / 100) * LAYERS.length);
+    const col = LAYERS[Math.min(layerIdx, LAYERS.length - 1)];
+    const streamX = cx + Math.sin(frame * 0.05) * 8;
+    const streamTop = 0;
+    const streamBot = BOWL_TOP_Y + 2;
+
+    ctx.save();
+    const sg = ctx.createLinearGradient(streamX - 6, streamTop, streamX + 6, streamBot);
+    sg.addColorStop(0, col + '00');
+    sg.addColorStop(0.3, col + 'aa');
+    sg.addColorStop(1, col + 'dd');
+    ctx.beginPath();
+    ctx.moveTo(streamX - 5, streamTop);
+    ctx.quadraticCurveTo(streamX - 3, (streamTop + streamBot)/2, streamX - 4, streamBot);
+    ctx.quadraticCurveTo(streamX + 4, streamBot, streamX + 3, (streamTop + streamBot)/2);
+    ctx.quadraticCurveTo(streamX + 5, streamTop, streamX - 5, streamTop);
+    ctx.fillStyle = sg;
+    ctx.fill();
+
+    // Glint on stream
+    ctx.beginPath();
+    ctx.ellipse(streamX - 2, streamTop + 30, 2, 12, 0.1, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawFrame(){
+    ctx.clearRect(0, 0, W, H);
+    drawLiquid();
+    drawDroplets();
+    drawPourStream();
+    drawBowl();
+    drawGlassReflections();
+  }
+
+  let tick_frame = 0;
+  function tick(){
+    tick_frame++;
+    frame++;
+    // Ease pct up
+    const target = Math.min(99, tick_frame * 1.12);
+    pct += (target - pct) * 0.055;
+
+    pctEl.textContent = Math.floor(pct) + '%';
+    drawFrame();
+
+    // Spawn droplets occasionally
+    if(frame % 8 === 0 && pct < 98) spawnDrop(pct);
+
+    if(tick_frame < 90){
+      requestAnimationFrame(tick);
+    } else {
+      pct = 100;
+      pctEl.textContent = '100%';
+      drawFrame();
+      setTimeout(function(){
+        preloader.classList.add('hide');
+        setTimeout(function(){ preloader.remove(); }, 800);
+      }, 380);
+    }
+  }
+
+  window.addEventListener('load', function(){
+    setTimeout(function(){
+      preloader.classList.add('hide');
+      setTimeout(function(){ if(preloader && preloader.parentNode) preloader.remove(); }, 800);
+    }, 500);
+  });
+
+  tick();
+})();
+
+/* ============ THEME SWITCHER ============ */
+(function themeSwitcher(){
+  const btns = document.querySelectorAll('.theme-btn');
+  const THEMES = ['warm','ocean','forest'];
+
+  // Hero scene colour map per theme
+  const THEME_HERO_CLEAR = { warm:0xfaf3e6, ocean:0xe8f4fd, forest:0xecfdf5 };
+  const THEME_HERO_FOG   = { warm:0xfaf3e6, ocean:0xe8f4fd, forest:0xecfdf5 };
+
+  function applyTheme(theme){
+    // Remove all theme classes
+    THEMES.forEach(function(t){ document.body.classList.remove('theme-'+t); });
+    document.body.classList.add('theme-'+theme);
+
+    // Update active button
+    btns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-theme')===theme); });
+
+    // Store preference
+    try{ localStorage.setItem('suganya-theme', theme); } catch(e){}
+  }
+
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      applyTheme(btn.getAttribute('data-theme'));
+    });
+  });
+
+  // Load saved preference
+  let saved = 'warm';
+  try{ saved = localStorage.getItem('suganya-theme') || 'warm'; } catch(e){}
+  applyTheme(saved);
+})();
+
+
+/* ============ LOGO MINI GLASS BOWL — water pouring animation ============ */
+(function logoWaterBowl(){
+  const c = document.getElementById('logoBowlCanvas');
+  if(!c) return;
+  const ctx = c.getContext('2d');
+  const W = c.width, H = c.height;   // 52x52
+  const cx = W/2, cy = H/2;
+  const COLORS = ['#ff5c5c','#ffb830','#4caf50','#3d8bfd','#a259ff','#ff8a3d'];
+  let t = 0, colorPhase = 0, colorTimer = 0;
+
+  // Bowl params (tiny)
+  const RIM_Y = 10, BOT_Y = 46, RIM_RX = 22, BOT_RX = 8;
+  let fillPct = 0, fillDir = 1, wavOff = 0;
+
+  function getX(y){ const r=(y-RIM_Y)/(BOT_Y-RIM_Y); return BOT_RX+(RIM_RX-BOT_RX)*(1-r*r*0.5); }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    t += 0.04;
+    wavOff += 0.08;
+
+    // cycle fill 0→100→0
+    fillPct += fillDir * 0.6;
+    if(fillPct >= 100){ fillPct=100; fillDir=-1; }
+    else if(fillPct <= 0){ fillPct=0; fillDir=1; colorTimer++; if(colorTimer%1===0) colorPhase=(colorPhase+1)%COLORS.length; }
+
+    const col1 = COLORS[colorPhase];
+    const col2 = COLORS[(colorPhase+1)%COLORS.length];
+    const fillH = (fillPct/100)*(BOT_Y-RIM_Y);
+    const liqTop = BOT_Y - fillH;
+
+    // --- Liquid inside bowl ---
+    if(fillPct > 0){
+      ctx.save();
+      // clip to bowl
+      ctx.beginPath();
+      ctx.moveTo(cx-RIM_RX, RIM_Y);
+      ctx.bezierCurveTo(cx-RIM_RX, RIM_Y+(BOT_Y-RIM_Y)*0.4, cx-BOT_RX, BOT_Y-6, cx, BOT_Y);
+      ctx.bezierCurveTo(cx+BOT_RX, BOT_Y-6, cx+RIM_RX, RIM_Y+(BOT_Y-RIM_Y)*0.4, cx+RIM_RX, RIM_Y);
+      ctx.closePath(); ctx.clip();
+
+      const lg = ctx.createLinearGradient(0,liqTop,0,BOT_Y);
+      lg.addColorStop(0, col2+'cc'); lg.addColorStop(1, col1+'ff');
+      ctx.fillStyle=lg;
+      ctx.fillRect(0,liqTop,W,BOT_Y-liqTop+2);
+
+      // wavy surface
+      ctx.beginPath();
+      for(let x=0;x<=W;x+=3){
+        const bw = getX(liqTop);
+        const rel=(x-cx)/bw;
+        const wave = Math.sin(x*0.25+wavOff)*2.5 + Math.sin(x*0.45+wavOff*1.4)*1.5;
+        if(x===0) ctx.moveTo(x, liqTop+wave);
+        else ctx.lineTo(x, liqTop+wave);
+      }
+      ctx.lineTo(W,liqTop+3); ctx.lineTo(W,BOT_Y); ctx.lineTo(0,BOT_Y); ctx.closePath();
+      ctx.fillStyle = col2+'99'; ctx.fill();
+      ctx.restore();
+    }
+
+    // --- Pour stream above bowl (only while filling) ---
+    if(fillDir === 1 && fillPct < 98){
+      const sx = cx + Math.sin(t*0.7)*3;
+      ctx.save();
+      const sg = ctx.createLinearGradient(sx,0,sx,RIM_Y+2);
+      sg.addColorStop(0,col1+'00'); sg.addColorStop(1,col1+'cc');
+      ctx.beginPath();
+      ctx.moveTo(sx-2.5,0); ctx.lineTo(sx+2.5,0);
+      ctx.lineTo(sx+2,RIM_Y+2); ctx.lineTo(sx-2,RIM_Y+2); ctx.closePath();
+      ctx.fillStyle=sg; ctx.fill();
+      // droplet at bottom of stream
+      ctx.beginPath();
+      ctx.arc(sx, RIM_Y+5, 3, 0, Math.PI*2);
+      ctx.fillStyle = col1+'cc'; ctx.fill();
+      ctx.restore();
+    }
+
+    // --- Glass bowl outline ---
+    ctx.save();
+    ctx.beginPath();
+    ctx.moveTo(cx-RIM_RX, RIM_Y);
+    ctx.bezierCurveTo(cx-RIM_RX, RIM_Y+(BOT_Y-RIM_Y)*0.4, cx-BOT_RX, BOT_Y-6, cx, BOT_Y);
+    ctx.bezierCurveTo(cx+BOT_RX, BOT_Y-6, cx+RIM_RX, RIM_Y+(BOT_Y-RIM_Y)*0.4, cx+RIM_RX, RIM_Y);
+    ctx.closePath();
+    // Glass fill
+    const gf = ctx.createLinearGradient(cx-RIM_RX,0,cx+RIM_RX,H);
+    gf.addColorStop(0,'rgba(255,255,255,0.22)'); gf.addColorStop(1,'rgba(255,255,255,0.06)');
+    ctx.fillStyle=gf; ctx.fill();
+    // Rim border
+    ctx.strokeStyle='rgba(255,255,255,0.8)'; ctx.lineWidth=2.2; ctx.stroke();
+    // Left highlight
+    ctx.beginPath();
+    ctx.ellipse(cx-RIM_RX*0.75, RIM_Y+(BOT_Y-RIM_Y)*0.3, 2.5, 12, -0.2, 0, Math.PI*2);
+    ctx.fillStyle='rgba(255,255,255,0.55)'; ctx.fill();
+    ctx.restore();
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ============ ACTIVE NAV LINK HIGHLIGHT ON SCROLL ============ */
+(function activeNav(){
+  const sections = ['hero','about','services','gallery','testimonials','contact'];
+  const links = document.querySelectorAll('.glass-nav-link');
+  function update(){
+    let cur = 'hero';
+    sections.forEach(function(id){
+      const el = document.getElementById(id);
+      if(el && window.scrollY >= el.offsetTop - 120) cur = id;
+    });
+    links.forEach(function(a){
+      const href = a.getAttribute('href');
+      a.classList.toggle('active', href === '#'+cur);
+    });
+  }
+  window.addEventListener('scroll', update, {passive:true});
+  update();
+})();
+
+console.log('%c✦ Suganya Art Portfolio Loaded ✦','color:#ff5c5c;font-size:16px;font-weight:bold');
+</script>
+</body>
+</html>
